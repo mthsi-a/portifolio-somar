@@ -1,0 +1,10 @@
+# Fotos originais do cliente: não publicar (as versões otimizadas ficam em img/ e img/galeria/)
+img/originais/
+
+# Configurações locais do Claude Code
+.claude/settings.local.json
+
+# Arquivos do sistema
+Thumbs.db
+desktop.ini
+.DS_Store

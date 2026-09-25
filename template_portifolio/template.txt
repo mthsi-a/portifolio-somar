@@ -1,0 +1,73 @@
+# Contexto
+Vou criar vários sites de portfólio para autônomos e pequenos negócios (boleira, fotógrafo, maquiadora, personal trainer, barbeiro, etc.). Quero um TEMPLATE BASE reutilizável: para cada cliente novo, eu copio a pasta, edito um único arquivo de configuração, troco as imagens e o site está pronto.
+
+# Tarefa
+Crie o template base nesta pasta e o arquivo CLAUDE.md que vai guiar todos os projetos futuros.
+
+# Stack
+- HTML5 + CSS3 + JavaScript vanilla. Sem frameworks, sem build, sem dependências npm.
+- Todo o conteúdo fica em `config.js`, no formato `window.CONFIG = { ... }` (não usar fetch de JSON, para o site funcionar abrindo o index.html direto no navegador, sem servidor).
+- O `main.js` lê o CONFIG e renderiza as seções.
+
+# Estrutura de pastas
+/index.html
+/config.js
+/css/style.css
+/js/main.js
+/img/            (placeholders; criar subpastas galeria/, servicos/, depoimentos/)
+/CLAUDE.md
+/README.md
+
+# O que o config.js deve controlar
+- **Negócio:** nome, profissão/slogan, cidade, logo (opcional, com fallback para o nome em texto)
+- **Tema:** cor primária, secundária, fundo, texto, fonte de título e de corpo (Google Fonts). Aplicar via variáveis CSS no :root.
+- **Contato:** número de WhatsApp, mensagem padrão, Instagram, e-mail, endereço/área de atendimento, horário
+- **SEO:** title, description, imagem de Open Graph
+- **Seções**, cada uma com `ativo: true/false` e ordem configurável:
+  1. Hero: título, subtítulo, imagem de fundo, texto do botão
+  2. Sobre: foto, texto
+  3. Serviços/produtos: lista com nome, descrição, imagem, preço opcional (se vazio, mostrar "Sob consulta")
+  4. Galeria: imagens com legenda e categoria; filtro por categoria (só aparece se houver 2+ categorias); lightbox com navegação por setas, teclado e swipe no celular
+  5. Como funciona: passos numerados (ex.: como encomendar, como agendar)
+  6. Depoimentos: nome, texto, foto opcional
+  7. FAQ: perguntas e respostas em acordeão
+  8. Contato: botões para WhatsApp, Instagram e e-mail + endereço/horário
+- Botão flutuante de WhatsApp sempre visível, com mensagem pré-preenchida
+- Botões de serviço podem abrir o WhatsApp com a mensagem "Olá! Tenho interesse em: [nome do serviço]"
+
+# Requisitos técnicos
+- Mobile-first e responsivo (testar 360px, 768px e 1280px)
+- HTML semântico, alt em todas as imagens, contraste adequado, navegação por teclado, foco visível
+- Performance: imagens com loading="lazy" (exceto o hero), width/height definidos, CSS e JS enxutos. Meta: Lighthouse 90+ em todas as categorias
+- Meta tags de SEO e Open Graph escritas direto no <head> do index.html (o WhatsApp não executa JS para gerar a prévia); deixar comentário indicando que devem ser atualizadas junto com o config
+- Dados estruturados JSON-LD LocalBusiness gerados a partir do config
+- Menu fixo com links âncora para as seções ativas; menu hambúrguer no mobile
+- Animações leves de entrada nas seções, respeitando prefers-reduced-motion
+- Código comentado em português, nomes claros
+- Conteúdo de exemplo genérico e neutro no config (negócio fictício), com imagens placeholder leves (SVG ou cores sólidas), para eu ver tudo funcionando
+
+# CLAUDE.md
+Crie com:
+- Objetivo do template e fluxo para um cliente novo
+- Stack e regras (sem frameworks, conteúdo só no config.js)
+- Estrutura de pastas
+- Padrões obrigatórios (os requisitos técnicos acima)
+- Seções sugeridas por nicho: boleira (cardápio, como encomendar, prazos), fotógrafo (galeria por categoria, pacotes), serviços em geral (antes e depois, FAQ)
+- Seção "Briefing do cliente" vazia, para ser preenchida em cada projeto
+- Instrução: ao final de cada tarefa, atualizar o CLAUDE.md com o que mudou
+
+# README.md
+Passo a passo curto para criar um portfólio novo: copiar a pasta, editar config.js, trocar imagens (recomendar WebP, tamanhos ideais), atualizar meta tags do <head>, testar e publicar (GitHub Pages, Netlify ou Vercel).
+
+# Critério de pronto
+- Abrir o index.html direto no navegador e o site funcionar completo com o conteúdo de exemplo
+- Alterar cores, textos ou desativar uma seção no config.js reflete no site sem mexer em outro arquivo
+- Lightbox, filtro, acordeão, menu mobile e botões de WhatsApp funcionando
+- Sem erros no console
+
+# Restrições
+- Não instalar dependências nem criar build
+- Não usar imagens externas pesadas
+- Não espalhar conteúdo fixo pelo HTML ou JS: tudo que é do cliente vem do config.js
+
+Antes de começar, mostre um plano curto de implementação. Depois execute.

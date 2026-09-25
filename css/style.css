@@ -1,0 +1,1148 @@
+/* ==========================================================================
+   Variáveis do tema
+   Os valores abaixo são apenas padrões de segurança (antes do config aplicar).
+   O js/main.js sobrescreve cada variável com CONFIG.tema:
+     corPrimaria -> --cor-primaria, fonteTitulo -> --fonte-titulo, etc.
+   ========================================================================== */
+:root {
+  /* Cores (vêm do config) */
+  --cor-primaria: #E0607E;
+  --cor-primaria-escura: #C94A6A;
+  --cor-botao: #B5405F;
+  --cor-botao-hover: #A33756;
+  --cor-clara: #F9DDE3;
+  --cor-fundo: #FDF4EF;
+  --cor-texto: #5A2E22;
+
+  /* Fontes (só o nome da família; o fallback genérico fica em cada uso) */
+  --fonte-titulo: "Playfair Display";
+  --fonte-destaque: "Dancing Script";
+  --fonte-texto: "Poppins";
+
+  /* Derivadas do tema (não precisam ir para o config) */
+  --cor-superficie: #fff;
+  --cor-fundo-alt: color-mix(in srgb, var(--cor-clara) 45%, var(--cor-fundo));
+  --cor-texto-suave: color-mix(in srgb, var(--cor-texto) 82%, var(--cor-superficie));
+  --sombra: 0 10px 30px color-mix(in srgb, var(--cor-texto) 9%, transparent);
+  --sombra-forte: 0 14px 34px color-mix(in srgb, var(--cor-texto) 16%, transparent);
+
+  /* Medidas */
+  --largura-max: 1100px;
+  --altura-topo: 4rem;
+  --espaco-secao: 4rem;
+  --raio: 1.25rem;
+  --raio-pequeno: 0.75rem;
+  --tamanho-flutuante: 3.5rem;
+}
+
+/* ==========================================================================
+   Reset leve
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  padding-top: var(--altura-topo); /* espaço do cabeçalho fixo */
+  line-height: 1.6;
+  font-family: var(--fonte-texto), system-ui, sans-serif;
+  color: var(--cor-texto);
+  background-color: var(--cor-fundo);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--fonte-titulo), Georgia, serif;
+  line-height: 1.2;
+  color: var(--cor-texto);
+}
+
+img,
+picture,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* O atributo hidden sempre vence (abas, botão flutuante) */
+[hidden] {
+  display: none !important;
+}
+
+/* Foco visível em tudo que é clicável */
+:focus-visible {
+  outline: 3px solid var(--cor-botao);
+  outline-offset: 3px;
+  border-radius: 0.375rem;
+}
+
+/* Texto só para leitores de tela */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   Estrutura comum
+   ========================================================================== */
+.container {
+  width: 100%;
+  max-width: var(--largura-max);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+.secao {
+  padding-block: var(--espaco-secao);
+  scroll-margin-top: var(--altura-topo);
+}
+
+/* Fundos alternados, seguindo a ordem final das seções */
+main > .secao:nth-child(even) {
+  background-color: var(--cor-fundo-alt);
+}
+
+.secao-cabecalho {
+  max-width: 40rem;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+
+.secao-cabecalho h2,
+.sobre-texto h2 {
+  font-size: clamp(1.75rem, 1.2rem + 2.5vw, 2.5rem);
+}
+
+/* Traço decorativo abaixo dos títulos */
+.secao-cabecalho h2::after {
+  content: "";
+  display: block;
+  width: 3rem;
+  height: 3px;
+  margin: 0.9rem auto 0;
+  border-radius: 3px;
+  background-color: var(--cor-primaria);
+}
+
+.secao-subtitulo {
+  margin-top: 1rem;
+  color: var(--cor-texto-suave);
+}
+
+.cartao {
+  background-color: var(--cor-superficie);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+
+/* ==========================================================================
+   Botões
+   ========================================================================== */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: 999px;
+  background-color: var(--cor-botao);
+  color: #fff;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  box-shadow: var(--sombra);
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.botao:hover {
+  background-color: var(--cor-botao-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-forte);
+}
+
+.botao .icone-whatsapp {
+  flex-shrink: 0;
+  width: 1.25em;
+  height: 1.25em;
+}
+
+.botao-grande {
+  padding: 1rem 1.75rem;
+  font-size: 1.05rem;
+}
+
+.botao-pequeno {
+  padding: 0.55rem 1rem;
+  font-size: 0.875rem;
+  box-shadow: none;
+}
+
+/* ==========================================================================
+   Imagem indisponível (fallback com o texto alternativo)
+   ========================================================================== */
+.img-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  background-color: var(--cor-clara);
+  color: var(--cor-texto);
+  font-size: 0.875rem;
+  font-style: italic;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+/* ==========================================================================
+   Cabeçalho fixo e menu
+   ========================================================================== */
+.topo {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  height: var(--altura-topo);
+  background-color: color-mix(in srgb, var(--cor-fundo) 94%, transparent);
+  box-shadow: var(--sombra);
+  backdrop-filter: blur(8px);
+}
+
+.topo-conteudo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: 100%;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1;
+}
+
+.logo-img {
+  width: auto;
+  height: 2.75rem;
+}
+
+.logo-nome {
+  font-family: var(--fonte-destaque), cursive;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--cor-primaria-escura);
+}
+
+.logo-slogan {
+  margin-top: 0.15rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Botão hambúrguer: três traços que viram um X quando aberto */
+.menu-botao {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--raio-pequeno);
+}
+
+.menu-icone,
+.menu-icone::before,
+.menu-icone::after {
+  display: block;
+  width: 1.5rem;
+  height: 2px;
+  border-radius: 2px;
+  background-color: var(--cor-texto);
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.menu-icone {
+  position: relative;
+}
+
+.menu-icone::before,
+.menu-icone::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.menu-icone::before { top: -7px; }
+.menu-icone::after { top: 7px; }
+
+.menu-aberto .menu-icone { background-color: transparent; }
+.menu-aberto .menu-icone::before { transform: translateY(7px) rotate(45deg); }
+.menu-aberto .menu-icone::after { transform: translateY(-7px) rotate(-45deg); }
+
+/* Menu no celular: painel abaixo do cabeçalho, escondido até abrir */
+.menu {
+  display: none;
+  position: absolute;
+  top: var(--altura-topo);
+  left: 0;
+  right: 0;
+  max-height: calc(100vh - var(--altura-topo));
+  overflow-y: auto;
+  background-color: var(--cor-fundo);
+  box-shadow: var(--sombra-forte);
+}
+
+.menu-aberto .menu {
+  display: block;
+}
+
+.menu ul {
+  padding-block: 0.5rem;
+}
+
+.menu a {
+  display: block;
+  padding: 0.85rem 1.25rem;
+  font-weight: 500;
+}
+
+.menu a:hover {
+  color: var(--cor-botao);
+}
+
+/* ==========================================================================
+   Hero (#inicio)
+   ========================================================================== */
+.hero {
+  padding-block: 2.5rem 3.5rem;
+}
+
+.hero-grade {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-chamada {
+  font-family: var(--fonte-destaque), cursive;
+  font-size: 1.5rem;
+  color: var(--cor-primaria-escura);
+}
+
+.hero h1 {
+  margin-top: 0.5rem;
+  font-size: clamp(2.25rem, 1.5rem + 4vw, 3.5rem);
+}
+
+.hero h1 .destaque {
+  display: block;
+  margin-top: 0.25rem;
+  font-family: var(--fonte-destaque), cursive;
+  font-size: 1.1em;
+  font-weight: 700;
+  color: var(--cor-primaria-escura);
+}
+
+.hero-subtitulo {
+  max-width: 34rem;
+  margin: 1.25rem auto 2rem;
+  font-size: 1.05rem;
+  color: var(--cor-texto-suave);
+}
+
+.hero-imagem {
+  width: 100%;
+  max-width: 22rem;
+  margin-inline: auto;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  /* formato de arco, como uma vitrine */
+  border-radius: 12rem 12rem var(--raio) var(--raio);
+  box-shadow: var(--sombra-forte);
+  border: 6px solid var(--cor-superficie);
+}
+
+.hero-foto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ==========================================================================
+   Diferenciais
+   ========================================================================== */
+.diferenciais-grade {
+  display: grid;
+  gap: 1rem;
+}
+
+.diferencial {
+  padding: 1.75rem 1.5rem;
+  text-align: center;
+}
+
+.diferencial-icone {
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  background-color: var(--cor-clara);
+  color: var(--cor-primaria-escura);
+}
+
+.diferencial-icone svg {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.diferencial h3 {
+  margin-bottom: 0.4rem;
+  font-size: 1.15rem;
+}
+
+.diferencial p {
+  color: var(--cor-texto-suave);
+  font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   Cardápio (abas)
+   ========================================================================== */
+.abas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.aba {
+  padding: 0.6rem 1.1rem;
+  border: 2px solid var(--cor-clara);
+  border-radius: 999px;
+  background-color: var(--cor-superficie);
+  font-weight: 500;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.aba:hover {
+  border-color: var(--cor-primaria);
+}
+
+.aba[aria-selected="true"] {
+  border-color: var(--cor-botao);
+  background-color: var(--cor-botao);
+  color: #fff;
+}
+
+.painel {
+  max-width: 48rem;
+  margin-inline: auto;
+  padding: 1.5rem 1.25rem;
+}
+
+.painel-descricao {
+  margin-bottom: 0.5rem;
+  text-align: center;
+  color: var(--cor-texto-suave);
+}
+
+/* Cada item: no celular, nome e preço em cima e botão embaixo */
+.item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  padding-block: 1rem;
+  border-bottom: 1px dashed var(--cor-clara);
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.item-nome {
+  display: block;
+  font-weight: 600;
+}
+
+.item-detalhe {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--cor-texto-suave);
+}
+
+.item-preco {
+  font-family: var(--fonte-titulo), Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-variant-numeric: lining-nums; /* Playfair usa algarismos antigos por padrão */
+  color: var(--cor-botao);
+  white-space: nowrap;
+}
+
+.item-botao {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
+.painel h4 {
+  margin: 1.75rem 0 0.75rem;
+  font-size: 1.1rem;
+}
+
+.sabores {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.sabores li {
+  padding: 0.75rem 1rem;
+  border-radius: var(--raio-pequeno);
+  background-color: var(--cor-fundo-alt);
+  font-size: 0.925rem;
+}
+
+.sabores strong {
+  display: block;
+}
+
+.link-opcoes {
+  display: inline-block;
+  margin-top: 1.25rem;
+  font-weight: 600;
+  color: var(--cor-botao);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.link-opcoes::after {
+  content: " →";
+}
+
+.link-opcoes:hover {
+  color: var(--cor-botao-hover);
+}
+
+/* Lista "nome ........ preço" (adicionais) */
+.lista-precos li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.6rem;
+  border-bottom: 1px dotted var(--cor-clara);
+}
+
+.lista-precos li:last-child {
+  border-bottom: none;
+}
+
+.lp-nome small {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--cor-texto-suave);
+}
+
+.lp-preco {
+  font-weight: 600;
+  color: var(--cor-botao);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   Monte o seu bolo (#opcoes)
+   ========================================================================== */
+#opcoes .secao-subtitulo {
+  display: inline-block;
+  padding: 0.35rem 1rem;
+  border-radius: 999px;
+  background-color: var(--cor-superficie);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--cor-texto);
+}
+
+.opcoes-grade {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.opcoes-grade .cartao {
+  padding: 1.5rem 1.25rem;
+}
+
+.opcoes-grade h3 {
+  margin-bottom: 0.9rem;
+  font-size: 1.2rem;
+}
+
+.opcoes-grade .chips + h3 {
+  margin-top: 1.5rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chips li {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  background-color: var(--cor-clara);
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   Galeria
+   ========================================================================== */
+.galeria-grade {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.galeria-item {
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: var(--raio-pequeno);
+  box-shadow: var(--sombra);
+}
+
+.galeria-foto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.galeria-item:hover .galeria-foto {
+  transform: scale(1.04);
+}
+
+.galeria-item .img-fallback {
+  font-size: 0.8rem;
+}
+
+/* ==========================================================================
+   Como encomendar
+   ========================================================================== */
+.passos {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.passo {
+  padding: 1.75rem 1.5rem;
+  text-align: center;
+}
+
+.passo-numero {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto 0.9rem;
+  border-radius: 50%;
+  background-color: var(--cor-botao);
+  color: #fff;
+  font-family: var(--fonte-titulo), Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  font-variant-numeric: lining-nums;
+}
+
+.passo h3 {
+  margin-bottom: 0.4rem;
+  font-size: 1.2rem;
+}
+
+.passo p {
+  color: var(--cor-texto-suave);
+}
+
+.observacoes {
+  max-width: 48rem;
+  margin: 2rem auto 0;
+  padding: 1.5rem 1.25rem;
+  border: 2px dashed var(--cor-primaria);
+  border-radius: var(--raio);
+}
+
+.observacoes h3 {
+  margin-bottom: 0.75rem;
+  font-size: 1.15rem;
+}
+
+.observacoes li {
+  position: relative;
+  padding-left: 1.25rem;
+}
+
+.observacoes li + li {
+  margin-top: 0.5rem;
+}
+
+.observacoes li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--cor-primaria);
+}
+
+/* ==========================================================================
+   Sobre
+   ========================================================================== */
+.sobre-grade {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+}
+
+.sobre-imagem {
+  width: 100%;
+  max-width: 22rem;
+  margin-inline: auto;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--raio);
+  box-shadow: var(--sombra-forte);
+}
+
+.sobre-foto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sobre-texto h2 {
+  margin-bottom: 1rem;
+}
+
+.sobre-texto p + p {
+  margin-top: 1rem;
+}
+
+/* ==========================================================================
+   Depoimentos
+   ========================================================================== */
+.depoimentos-grade {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.depoimento {
+  height: 100%;
+  padding: 1.5rem;
+}
+
+.depoimento blockquote {
+  font-style: italic;
+}
+
+.depoimento figcaption {
+  margin-top: 1rem;
+  font-weight: 600;
+  color: var(--cor-botao);
+}
+
+/* ==========================================================================
+   FAQ (acordeão com <details>)
+   ========================================================================== */
+.faq-lista {
+  max-width: 48rem;
+  margin-inline: auto;
+}
+
+.faq-item {
+  margin-bottom: 0.75rem;
+  border-radius: var(--raio-pequeno);
+  background-color: var(--cor-superficie);
+  box-shadow: var(--sombra);
+}
+
+.faq-item summary {
+  position: relative;
+  padding: 1.1rem 3rem 1.1rem 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  border-radius: var(--raio-pequeno);
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Setinha que gira ao abrir */
+.faq-item summary::after {
+  content: "";
+  position: absolute;
+  right: 1.25rem;
+  top: 50%;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-right: 2px solid var(--cor-botao);
+  border-bottom: 2px solid var(--cor-botao);
+  transform: translateY(-70%) rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.faq-item[open] summary::after {
+  transform: translateY(-30%) rotate(-135deg);
+}
+
+.faq-resposta {
+  padding: 0 1.25rem 1.25rem;
+  color: var(--cor-texto-suave);
+}
+
+/* ==========================================================================
+   Contato
+   ========================================================================== */
+#contato {
+  text-align: center;
+}
+
+.contato-lista {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.contato-lista li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.contato-icone {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 0.4rem;
+  border-radius: 50%;
+  background-color: var(--cor-clara);
+  color: var(--cor-primaria-escura);
+}
+
+.contato-icone svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.contato-rotulo {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cor-texto-suave);
+}
+
+.contato-lista a,
+.contato-lista li > span:last-child {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.contato-lista a:hover {
+  color: var(--cor-botao);
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Rodapé
+   ========================================================================== */
+.rodape {
+  padding-block: 2.5rem;
+  background-color: var(--cor-texto);
+  color: var(--cor-fundo);
+  text-align: center;
+}
+
+/* No celular, espaço extra para o botão flutuante não cobrir o texto final */
+.tem-flutuante .rodape {
+  padding-bottom: calc(2.5rem + var(--tamanho-flutuante) + 1rem);
+}
+
+.rodape-marca {
+  font-family: var(--fonte-destaque), cursive;
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--cor-clara);
+}
+
+.rodape-frase {
+  margin-top: 0.25rem;
+}
+
+.rodape-copia {
+  margin-top: 1.25rem;
+  font-size: 0.8rem;
+}
+
+/* ==========================================================================
+   Botão flutuante de WhatsApp
+   ========================================================================== */
+.whatsapp-flutuante {
+  position: fixed;
+  right: 1rem;
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  width: var(--tamanho-flutuante);
+  height: var(--tamanho-flutuante);
+  border-radius: 50%;
+  background-color: var(--cor-botao);
+  color: #fff;
+  box-shadow: var(--sombra-forte);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.whatsapp-flutuante:hover {
+  background-color: var(--cor-botao-hover);
+  transform: scale(1.06);
+}
+
+.whatsapp-flutuante .icone-whatsapp {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+/* ==========================================================================
+   Animação de entrada (classes aplicadas pelo JS)
+   ========================================================================== */
+.revelar {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.revelar.visivel {
+  opacity: 1;
+  transform: none;
+}
+
+/* ==========================================================================
+   Tablet (768px+)
+   ========================================================================== */
+@media (min-width: 768px) {
+  :root {
+    --altura-topo: 4.5rem;
+    --espaco-secao: 5rem;
+  }
+
+  .container {
+    padding-inline: 2rem;
+  }
+
+  .hero {
+    padding-block: 3.5rem 4.5rem;
+  }
+
+  .hero-grade {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 3rem;
+    text-align: left;
+  }
+
+  .hero-subtitulo {
+    margin-inline: 0;
+  }
+
+  .diferenciais-grade,
+  .depoimentos-grade {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .painel {
+    padding: 2rem;
+  }
+
+  /* Item em linha única: nome | preço | botão */
+  .item {
+    grid-template-columns: 1fr auto auto;
+  }
+
+  .item-botao {
+    grid-column: auto;
+  }
+
+  .sabores {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .opcoes-grade {
+    grid-template-columns: 1.4fr 1fr;
+    align-items: start;
+  }
+
+  .opcoes-grade .cartao {
+    padding: 2rem;
+  }
+
+  .galeria-grade {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .passos {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .sobre-grade {
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 3rem;
+  }
+
+  .contato-lista {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .tem-flutuante .rodape {
+    padding-bottom: 2.5rem;
+  }
+}
+
+/* ==========================================================================
+   Desktop (1280px+): menu horizontal, sem hambúrguer
+   ========================================================================== */
+@media (min-width: 1280px) {
+  .menu-botao {
+    display: none;
+  }
+
+  .menu,
+  .menu-aberto .menu {
+    display: block;
+    position: static;
+    max-height: none;
+    overflow: visible;
+    background: none;
+    box-shadow: none;
+  }
+
+  .menu ul {
+    display: flex;
+    gap: 1.75rem;
+    padding: 0;
+  }
+
+  .menu a {
+    position: relative;
+    padding: 0.25rem 0;
+    font-size: 0.95rem;
+  }
+
+  /* Sublinhado que cresce no hover */
+  .menu a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background-color: var(--cor-primaria);
+    transform: scaleX(0);
+    transition: transform 0.2s ease;
+  }
+
+  .menu a:hover::after {
+    transform: scaleX(1);
+  }
+
+  .diferenciais-grade {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .depoimentos-grade {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .hero-imagem {
+    max-width: 26rem;
+  }
+}
+
+/* ==========================================================================
+   Menos movimento: desliga animações e transições
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .revelar {
+    opacity: 1;
+    transform: none;
+  }
+
+  .botao:hover,
+  .whatsapp-flutuante:hover,
+  .galeria-item:hover .galeria-foto {
+    transform: none;
+  }
+}

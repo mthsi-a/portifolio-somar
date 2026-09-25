@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Título e descrição provisórios: o js/main.js substitui pelos valores de CONFIG.seo -->
+  <title>Carregando…</title>
+  <meta name="description" content="">
+
+  <!-- Google Fonts: o link das famílias é gerado pelo js/main.js a partir de CONFIG.tema -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Cabeçalho fixo: logo, menu e botão hambúrguer (renderizados pelo JS) -->
+  <header id="topo"></header>
+
+  <!-- Cada seção é um container vazio preenchido pelo js/main.js a partir do config.js.
+       A ordem e a visibilidade finais vêm de CONFIG.secoes. -->
+  <main>
+    <section id="inicio"></section>
+    <section id="diferenciais"></section>
+    <section id="cardapio"></section>
+    <section id="opcoes"></section>
+    <section id="galeria"></section>
+    <section id="como-encomendar"></section>
+    <section id="sobre"></section>
+    <section id="depoimentos"></section>
+    <section id="faq"></section>
+    <section id="contato"></section>
+  </main>
+
+  <!-- Rodapé: marca, frase e ano -->
+  <footer id="rodape"></footer>
+
+  <!-- Botão flutuante de WhatsApp (link preenchido pelo JS) -->
+  <a id="whatsapp-flutuante" class="whatsapp-flutuante" hidden></a>
+
+  <!-- config.js precisa vir antes do main.js (defer mantém a ordem) -->
+  <script src="config.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>
